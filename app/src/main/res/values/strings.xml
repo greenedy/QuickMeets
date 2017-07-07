@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">QuickMeets</string>
+    <string name="text_logo">Quick Meets</string>
+    <string name="text_email">Email</string>
+    <string name="text_password">Password</string>
+    <string name="text_login">Login</string>
+    <string name="text_Register">Register</string>
+
 </resources>
