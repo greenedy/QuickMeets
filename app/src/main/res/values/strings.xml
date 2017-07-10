@@ -5,5 +5,17 @@
     <string name="text_password">Password</string>
     <string name="text_login">Login</string>
     <string name="text_Register">Register</string>
+    <string name="text_RegisterDescription">Please provide the following info to create your Quick Meets Account</string>
+    <string name="text_Name">Name</string>
+    <string name="text_EnterEmail">Please enter your email</string>
+    <string name="text_EnterPassword1">Please create a password</string>
+    <string name="text_EnterPassword2">Confirm Password </string>
+    <string name="text_Bio">Bio</string>
+    <string name="text_Edit">Edit</string>
+    <string name="text_Logout">Logout</string>
+    <string name="text_JoinedEvents">Joined Events</string>
+    <string name="text_CreatedEvents">Created Events</string>
+
+
 
 </resources>
