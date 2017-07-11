@@ -1,16 +1,37 @@
 package com.mark.mroz.quickmeets;
 
+import android.app.usage.UsageEvents;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import com.mark.mroz.quickmeets.enums.SportEnum;
+import com.mark.mroz.quickmeets.models.SportsEvent;
+import com.mark.mroz.quickmeets.models.User;
+import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class Login extends AppCompatActivity {
 
     private ConstraintLayout constraintLayout;
     private AnimationDrawable animationDrawable;
+    GlobalSharedManager manager;
+    List<User> userList;
+
+    //private Toolbar toolbar;
+    private EditText inputEmail, inputPassword;
+    private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword;
+    private Button btnLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +40,20 @@ public class Login extends AppCompatActivity {
 
         getSupportActionBar().hide();
 
+        inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_Email);
+        inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_Password);
+        inputEmail = (EditText) findViewById(R.id.input_email);
+        inputPassword = (EditText) findViewById(R.id.input_password);
 
+        manager = new GlobalSharedManager(this);
+
+        List<SportsEvent> testJoinedEvents = new ArrayList<SportsEvent>();
+        testJoinedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), null));
+        List<SportsEvent> testCreatedEvents = new ArrayList<SportsEvent>();
+        List< SportEnum > testFavSports = new ArrayList<SportEnum>();
+        testFavSports.add(SportEnum.SOCCER);
+        manager.saveUser(new User(101, "Nathan", 22, "nathansemail@gmail.com", "password", testJoinedEvents, testCreatedEvents, testFavSports,"Hi I'm Nathan I like Soccer!"));
+        userList= manager.getAllUsers();
 
         // init constraintLayout
         constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
@@ -54,9 +88,24 @@ public class Login extends AppCompatActivity {
     }
 
     public void onClickLogin(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        boolean loginSuccess=false;
+        for (int x=0; x<userList.size(); x++) {
+            System.out.println(userList.get(x));
+            User user = userList.get(x);
+           //Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
+            if(user.getEmail().equals(inputEmail.getText().toString()) && user.getPassword().equals(inputPassword.getText().toString())){
+                loginSuccess=true;
+            }
+        }
 
+
+        if(loginSuccess) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast.makeText(this, "Login info Incorrect", Toast.LENGTH_SHORT).show();
+        }
 
     }
     public void onClickRegister(View view) {

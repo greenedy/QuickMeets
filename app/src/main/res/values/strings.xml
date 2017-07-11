@@ -7,6 +7,8 @@
     <string name="text_Register">Register</string>
     <string name="text_RegisterDescription">Please provide the following info to create your Quick Meets Account</string>
     <string name="text_Name">Name</string>
+    <string name="text_Age">Age</string>
+    <string name="text_Save">Save</string>
     <string name="text_EnterEmail">Please enter your email</string>
     <string name="text_EnterPassword1">Please create a password</string>
     <string name="text_EnterPassword2">Confirm Password </string>
@@ -15,7 +17,10 @@
     <string name="text_Logout">Logout</string>
     <string name="text_JoinedEvents">Joined Events</string>
     <string name="text_CreatedEvents">Created Events</string>
-
+    <string name="error_name">Enter your full name</string>
+    <string name="error_email">Enter a valid email address</string>
+    <string name="error_password">Enter a password</string>
+    <string name="text_AccountDetails">Account Details</string>
 
 
 </resources>

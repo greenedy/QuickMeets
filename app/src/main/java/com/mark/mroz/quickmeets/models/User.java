@@ -106,9 +106,7 @@ public class User {
 
     public void setFavouriteSports(List<SportEnum> favouriteSports) { this.favouriteSports = favouriteSports; }
 
-    public String getBio() {
-        return bio;
-    }
+    public String getBio() { return bio; }
 
     public void setBio(String bio) {this.bio = bio;}
 }
