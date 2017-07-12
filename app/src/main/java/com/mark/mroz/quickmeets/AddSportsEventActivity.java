@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -78,14 +79,51 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
 
         Geocoder geo = new Geocoder(this, Locale.getDefault());
 
+
+
         try {
             Address address = geo.getFromLocation(lat,lng,1).get(0);
             String locationString = address.getAddressLine(0);
 
             locationEditText.setText(locationString);
         } catch (IOException e) {
-            locationEditText.setText("");
+            locationEditText.setText("Ottawa");
             e.printStackTrace();
+        }
+
+        Intent currentIntent = getIntent();
+        String sort = currentIntent.getStringExtra("sport");
+        if (sort != null) {
+            List<String> sports = Arrays.asList(getResources().getStringArray(R.array.sports_names));
+            spinner.setSelection(sports.indexOf(sort));
+        }
+        String players = currentIntent.getStringExtra("players");
+        if (players != null) {
+            playersEditText.setText(players);
+        }
+        String startDate = currentIntent.getStringExtra("start_date");
+        if (startDate != null) {
+            startDateEditText.setText(startDate);
+        }
+        String startTime = currentIntent.getStringExtra("start_time");
+        if (startTime != null) {
+            startTimeEditText.setText(startTime);
+        }
+        String endDate = currentIntent.getStringExtra("end_date");
+        if (endDate != null) {
+            endDateEditText.setText(endDate);
+        }
+        String endTime = currentIntent.getStringExtra("end_time");
+        if (endTime != null) {
+            endTimeEditText.setText(endTime);
+        }
+        Boolean equipment = currentIntent.getBooleanExtra("equipment", false);
+        if (equipment != null) {
+            equipmentCheckBox.setChecked(equipment);
+        }
+        String description = currentIntent.getStringExtra("description");
+        if (description != null) {
+            descriptionEditText.setText(description);
         }
     }
 
@@ -257,6 +295,14 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
 
                 Intent editLocationIntent = new Intent(this, MainActivity.class);
                 editLocationIntent.putExtra("SETUP_OPTION","EDIT");
+                editLocationIntent.putExtra("sport",spinner.getSelectedItem().toString());
+                editLocationIntent.putExtra("players",playersEditText.getText().toString());
+                editLocationIntent.putExtra("start_date",startDateEditText.getText().toString());
+                editLocationIntent.putExtra("start_time",startTimeEditText.getText().toString());
+                editLocationIntent.putExtra("end_date",endDateEditText.getText().toString());
+                editLocationIntent.putExtra("end_time",endTimeEditText.getText().toString());
+                editLocationIntent.putExtra("equipment",equipmentCheckBox.isChecked());
+                editLocationIntent.putExtra("description", descriptionEditText.getText().toString());
                 editLocationIntent.putExtra("Lat",lat);
                 editLocationIntent.putExtra("Lng",lng);
                 startActivity(editLocationIntent);
