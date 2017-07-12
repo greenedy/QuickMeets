@@ -10,6 +10,8 @@ import android.widget.TextView;
 import com.mark.mroz.quickmeets.models.User;
 import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class UserProfile extends AppCompatActivity {
@@ -17,7 +19,7 @@ public class UserProfile extends AppCompatActivity {
     int currentUserID;
     User currentUser;
 
-    private TextView userName, userAge, userBio;
+    private TextView userName, userAge, userBio, favourites;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class UserProfile extends AppCompatActivity {
         userName = (TextView) findViewById(R.id.lblName);
         userAge = (TextView) findViewById(R.id.lblAge);
         userBio = (TextView) findViewById(R.id.txtBio);
+        favourites =(TextView) findViewById(R.id.lblFavSports);
 
         System.out.println();
         userName.setText(currentUser.getName());
@@ -42,6 +45,8 @@ public class UserProfile extends AppCompatActivity {
             userAge.setText("Age: Hidden");
         }
         userBio.setText(currentUser.getBio());
+       // favourites.setText(currentUser);
+
 
     }
 
