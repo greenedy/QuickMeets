@@ -54,6 +54,15 @@ public class Login extends AppCompatActivity {
         testFavSports.add(SportEnum.SOCCER);
         manager.saveUser(new User(101, "Nathan", 22, "nathansemail@gmail.com", "password", testJoinedEvents, testCreatedEvents, testFavSports,"Hi I'm Nathan I like Soccer!"));
         userList= manager.getAllUsers();
+        System.out.println(manager.getCurrentUser().getName());
+        if(manager.getCurrentUser().getName().equals("Test User")){
+
+        }
+        else{
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         // init constraintLayout
         constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
@@ -95,6 +104,7 @@ public class Login extends AppCompatActivity {
            //Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
             if(user.getEmail().equals(inputEmail.getText().toString()) && user.getPassword().equals(inputPassword.getText().toString())){
                 loginSuccess=true;
+                manager.setCurrentUser(user);
             }
         }
 

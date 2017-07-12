@@ -2,6 +2,7 @@ package com.mark.mroz.quickmeets.models;
 
 import com.mark.mroz.quickmeets.enums.SportEnum;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -35,11 +36,22 @@ public class User {
     }
     public User() {
         this.name = "Test User";
-        this.age = 18;
+        this.age = 0;
         this.joinedEvents = joinedEvents;
         this.createdEvents = createdEvents;
         this.favouriteSports = favouriteSports;
         this.bio = "Create a Bio";
+
+    }
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.age = 0;
+        this.email=email;
+        this.password=password;
+        this.joinedEvents =new ArrayList<SportsEvent>();
+        this.createdEvents =new ArrayList<SportsEvent>();
+        this.favouriteSports =new ArrayList<SportEnum>();
+        this.bio="";
 
     }
     public int getUserID() {

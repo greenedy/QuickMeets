@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mark.mroz.quickmeets.R;
+import com.mark.mroz.quickmeets.models.User;
+import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
 
 public class Register extends AppCompatActivity {
 
@@ -20,6 +22,8 @@ public class Register extends AppCompatActivity {
     private EditText inputName, inputEmail, inputPassword, inputConfirmPassword;
     private TextInputLayout inputLayoutName, inputLayoutEmail, inputLayoutPassword,inputLayoutConfirmPassword;
     private Button btnRegister;
+    GlobalSharedManager manager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +31,9 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         getSupportActionBar().hide();
+
+        manager = new GlobalSharedManager(this);
+
 
         inputLayoutName = (TextInputLayout) findViewById(R.id.input_layout_Name);
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_Email);
@@ -108,6 +115,10 @@ public class Register extends AppCompatActivity {
         if (!validatePassword()) {
             return;
         }
+
+        User newUser = new User(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString());
+        manager.saveUser(newUser);
+        manager.setCurrentUser(newUser);
         Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);
 

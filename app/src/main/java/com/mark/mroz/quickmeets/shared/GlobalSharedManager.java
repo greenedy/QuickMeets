@@ -24,9 +24,11 @@ public class GlobalSharedManager {
 
     private static final String USERS_LIST = "UserList";
     private static final String ALL_USERS = "allUsers";
+    private static final String CURRENT_USER = "CurrentUser";
 
     private static final String SPORTS_EVENT_LIST = "SportsEventList";
     private static final String ALL_SPORTS_EVENTS = "allSportsEvents";
+    private User currentUser;
 
     public GlobalSharedManager(Context c) {
         this.appContext = c;
@@ -114,6 +116,35 @@ public class GlobalSharedManager {
             }
         }
         return foundUser;
+
+    }
+
+    public Boolean setCurrentUser(User user) {
+        SharedPreferences cUser = appContext.getSharedPreferences(CURRENT_USER, MODE_PRIVATE);
+        SharedPreferences.Editor editor  = cUser.edit();
+
+
+        String eventsJson = new Gson().toJson(user);
+
+        editor.putString(CURRENT_USER, eventsJson);
+
+        return editor.commit();
+    }
+
+    public User getCurrentUser() {
+        SharedPreferences users = appContext.getSharedPreferences(CURRENT_USER, MODE_PRIVATE);
+        String json = users.getString(CURRENT_USER, null);
+
+        if (json == null) {
+            return new User();
+        }
+
+        Type type = new TypeToken<User>(){}.getType();
+        User currentUser = new Gson().fromJson(json, type);
+
+
+
+        return currentUser;
 
     }
 

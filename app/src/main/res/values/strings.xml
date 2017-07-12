@@ -16,6 +16,7 @@
     <string name="text_Edit">Edit</string>
     <string name="text_Logout">Logout</string>
     <string name="text_JoinedEvents">Joined Events</string>
+    <string name="text_Favourites">Favourites</string>
     <string name="text_CreatedEvents">Created Events</string>
     <string name="error_name">Enter your full name</string>
     <string name="error_email">Enter a valid email address</string>

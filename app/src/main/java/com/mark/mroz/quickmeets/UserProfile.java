@@ -27,14 +27,20 @@ public class UserProfile extends AppCompatActivity {
 
         currentUserID = 101;
         manager = new GlobalSharedManager(this);
-        currentUser = manager.getUser(currentUserID);
+        currentUser = manager.getCurrentUser();
 
         userName = (TextView) findViewById(R.id.lblName);
         userAge = (TextView) findViewById(R.id.lblAge);
         userBio = (TextView) findViewById(R.id.txtBio);
 
+        System.out.println();
         userName.setText(currentUser.getName());
-        userAge.setText(Integer.toString(currentUser.getAge()));
+        if(currentUser.getAge()!=0) {
+            userAge.setText("Age: " + Integer.toString(currentUser.getAge()));
+        }
+        else{
+            userAge.setText("Age: Hidden");
+        }
         userBio.setText(currentUser.getBio());
 
     }
@@ -43,6 +49,15 @@ public class UserProfile extends AppCompatActivity {
         Intent intent = new Intent(this, UserProfileEdit.class);
         startActivity(intent);
 
+
+    }
+
+    public void onClickLogout(View view) {
+
+        manager.setCurrentUser(new User());
+        Intent intent = new Intent(this, Login.class);
+        startActivity(intent);
+        finish();
 
     }
 }

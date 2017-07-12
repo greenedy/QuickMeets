@@ -3,6 +3,8 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ffffff</color>
+    <color name="colorOther">#2196f3</color>
+
 
     <!-- 1st Gradient color -->
     <color name="colorPurple_A400">#D500F9</color>
