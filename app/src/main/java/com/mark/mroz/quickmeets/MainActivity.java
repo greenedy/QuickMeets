@@ -138,29 +138,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (SportsEvent event : manager.getAllSportsEvents()) {
                     if (event.getLat() == marker.getPosition().latitude && event.getLng() == marker.getPosition().longitude) {
                         View v = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-                        //TODO - fix
-//                        ImageView image = (ImageView) findViewById(R.id.markerSportIcon);
-//
-//                        Drawable drawableImage = null;
-//
-//                        switch (event.getSport()) {
-//                            case SOCCER:
-//                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.soccer);
-//                                break;
-//                            case TENNIS:
-//                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.tennis);
-//                                break;
-//                            case FOOTBALL:
-//                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.football);
-//                                break;
-//                            case DANCING:
-//                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.dancing);
-//                                break;
-//                        }
-//
-//                        if (drawableImage != null) {
-//                            image.setImageDrawable(drawableImage);
-//                        }
 
 
                         TextView title = (TextView) v.findViewById(R.id.markerTitle);
@@ -168,7 +145,38 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         CheckBox equipmentBox = (CheckBox) v.findViewById(R.id.markerEquipmentCheckBox);
                         title.setText(SportEnum.asString(event.getSport()));
                         players.setText(event.getSubscribedUsers().size() + " / " + event.getMaxPlayers() + " Players");
-                        equipmentBox.setChecked(event.getEquipment());
+
+                        if (event.getEquipment()) {
+                            equipmentBox.setSelected(true);
+                            equipmentBox.setChecked(true);
+                            equipmentBox.toggle();
+                        }
+
+
+
+                        ImageView cimg = (ImageView) v.findViewById(R.id.marker_image_icon);
+
+                        Drawable drawableImage = null;
+
+                        switch (event.getSport()) {
+                            case SOCCER:
+                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.soccer);
+                                break;
+                            case TENNIS:
+                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.tennis);
+                                break;
+                            case FOOTBALL:
+                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.football);
+                                break;
+                            case DANCING:
+                                drawableImage = ContextCompat.getDrawable(getApplicationContext(), R.drawable.dancing);
+                                break;
+                        }
+
+                        if (drawableImage != null) {
+                            cimg.setImageDrawable(drawableImage);
+                        }
+
                         return v;
                     }
                 }
