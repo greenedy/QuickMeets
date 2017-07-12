@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             setContentView(R.layout.activity_main);
 
             manager = new GlobalSharedManager(getApplicationContext());
+            getSupportActionBar().hide();
 
             initMap();
 
@@ -325,6 +326,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
                 break;
         }
+
+    }
+    public void onClickProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+
 
     }
 }
