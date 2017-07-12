@@ -22,7 +22,7 @@ public class GlobalSharedManager {
     private static final String USERS_LIST = "UserList";
 
     private static final String SPORTS_EVENT_LIST = "SportsEventList";
-    private static final String ALL_SPORTS_EVENTS = "allSportsEvents";
+    private static final String ALL_SPORTS_EVENTS = "AllSportsEvents";
 
     public GlobalSharedManager(Context c) {
         this.appContext = c;

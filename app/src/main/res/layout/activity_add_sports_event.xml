@@ -1,0 +1,315 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_sports_events"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mark.mroz.quickmeets.AddSportsEventActivity">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/ScrollView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <!--Put form controls here-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/TextViewTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Create A New Event!"
+                    android:textSize="25sp"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+            <!--<EditText-->
+            <!--android:id="@+id/EditTextName"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/feedbackname"-->
+            <!--android:inputType="textPersonName"-->
+            <!--android:layout_width="fill_parent">-->
+            <!--</EditText>-->
+
+            <!--<EditText-->
+            <!--android:id="@+id/EditTextEmail"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="@string/feedbackemail"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--android:layout_width="fill_parent">-->
+            <!--</EditText>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.48"
+                    android:text="Sport:"
+                    android:textSize="25sp" />
+
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="140dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.39"></Spinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.99"
+                    android:text="Players:"
+
+                    android:textSize="25sp" />
+
+                <Button
+                    android:id="@+id/minusButton"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="-" />
+
+                <EditText
+                    android:id="@+id/editPlayers"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:textAlignment="center" />
+
+                <Button
+                    android:id="@+id/plusButton"
+                    android:layout_width="25dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="+" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.90"
+                    android:text="Intensity:"
+                    android:textSize="25sp" />
+
+                <SeekBar
+                    android:id="@+id/intensitySeekBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3.98" />
+
+                <TextView
+                    android:id="@+id/intensityTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.90"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:textSize="25sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Start:"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/startDateEditText"
+                    android:layout_width="102dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Date"
+                    android:inputType="textPersonName"
+                    android:selectAllOnFocus="true" />
+
+                <EditText
+                    android:id="@+id/startTimeEditText"
+                    android:layout_width="116dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Time"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="End:"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/endDateEditText"
+                    android:layout_width="96dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.06"
+                    android:ems="10"
+                    android:hint="Date"
+                    android:inputType="textPersonName" />
+
+                <EditText
+                    android:id="@+id/endTimeEditText"
+                    android:layout_width="116dp"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Time"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.11"
+                    android:text="Equipment:"
+                    android:textSize="25sp" />
+
+                <CheckBox
+                    android:id="@+id/equipmentCheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="CheckBox" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/textView17"
+                    android:layout_width="137dp"
+                    android:layout_height="match_parent"
+                    android:text="Location:"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/locationEditText"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.90"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Name" />
+
+                <Button
+                    android:id="@+id/editButton"
+                    android:layout_width="51dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:drawable/ic_menu_edit" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description:"
+                    android:textSize="25sp" />
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textMultiLine" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingTop="10dp">
+
+                <Button
+                    android:id="@+id/cancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Cancel" />
+
+                <Button
+                    android:id="@+id/doneButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Done" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

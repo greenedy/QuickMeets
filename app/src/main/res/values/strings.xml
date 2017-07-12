@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">QuickMeets</string>
+    
+    <string name="select_sports_option">Select Sport</string>
+    <string-array name="sports_names">
+        <item>Soccer</item>
+        <item>Football</item>
+        <item>Tennis</item>
+        <item>Dancing</item>
+    </string-array>
 </resources>
