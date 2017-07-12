@@ -12,20 +12,37 @@ import java.util.List;
 
 public class SportsEvent {
 
+    // id
+
     private Long id;
 
-    private SportEnum sport;
+    // event info
 
+    private SportEnum sport;
     private int maxPlayers;
     private int intensity;
+
+    // date - time
 
     private Date startTime;
     private Date endTime;
 
+    // subscriber / creator info
+
     private User eventCreator;
     private List<User> subscribedUsers;
 
-    public SportsEvent(Long id, SportEnum sport, int maxPlayers, int intensity, Date startTime, Date endTime, User eventCreator, List<User> subscribedUsers) {
+    // map info
+
+    private double lat;
+    private double lng;
+
+    private Boolean equipment;
+    private String description;
+
+    // init
+
+    public SportsEvent(Long id, SportEnum sport, int maxPlayers, int intensity, Date startTime, Date endTime, User eventCreator, List<User> subscribedUsers, double lat, double lng, Boolean equipment, String description) {
         this.id = id;
         this.sport = sport;
         this.maxPlayers = maxPlayers;
@@ -34,9 +51,43 @@ public class SportsEvent {
         this.endTime = endTime;
         this.eventCreator = eventCreator;
         this.subscribedUsers = subscribedUsers;
+        this.lat = lat;
+        this.lng = lng;
+        this.equipment = equipment;
+        this.description = description;
     }
 
+    public Boolean getEquipment() {
+        return equipment;
+    }
 
+    public void setEquipment(Boolean equipment) {
+        this.equipment = equipment;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
 
     public Long getId() {
         return id;
