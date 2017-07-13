@@ -157,7 +157,7 @@ public class SportsEvent {
     public String toString() {
         return "SportsEvent{" +
                 "id=" + id +
-                ", sport=" + sport +
+                ", sport=" + SportEnum.asString(sport) +
                 ", maxPlayers=" + maxPlayers +
                 ", intensity=" + intensity +
                 ", startTime=" + startTime +

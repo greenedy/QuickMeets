@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ import java.util.List;
 
 import static android.support.v7.media.MediaControlIntent.EXTRA_MESSAGE;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, View.OnClickListener, SearchView.OnQueryTextListener {
 
     private static GlobalSharedManager manager;
 
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 doneEditButton.setOnClickListener(this);
             } else {
                 findViewById(R.id.doneEditButton).setVisibility(View.INVISIBLE);
+                SearchView s = (SearchView)findViewById(R.id.searchBar);
+                s.setOnQueryTextListener(this);
             }
 
         } else {
@@ -333,5 +336,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         startActivity(intent);
 
 
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (newText.equals("")) {
+            mapView.clear();
+            for (SportsEvent e :manager.getAllSportsEvents()) {
+                mapView.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLng())));
+            }
+        } else {
+            mapView.clear();
+            for (SportsEvent e :manager.getAllSportsEvents()) {
+                if (e.toString().toLowerCase().contains(newText.toLowerCase()))
+                    mapView.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLng())));
+            }
+        }
+        return true;
     }
 }

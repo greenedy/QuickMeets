@@ -66,15 +66,15 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.48"
+                    android:layout_weight="0.31"
                     android:text="Sport:"
                     android:textSize="25sp" />
 
                 <Spinner
                     android:id="@+id/spinner"
-                    android:layout_width="140dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.39"></Spinner>
+                    android:layout_weight="0.65"></Spinner>
             </LinearLayout>
 
             <LinearLayout
@@ -134,7 +134,7 @@
                     android:id="@+id/intensitySeekBar"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="3.98" />
+                    android:layout_weight="3.80" />
 
                 <TextView
                     android:id="@+id/intensityTextView"
@@ -229,7 +229,7 @@
                     android:id="@+id/equipmentCheckBox"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_weight="1.06"
                     android:text="CheckBox" />
 
             </LinearLayout>
@@ -252,7 +252,7 @@
                     android:id="@+id/locationEditText"
                     android:layout_width="100dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.90"
+                    android:layout_weight="0.94"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="Name" />
