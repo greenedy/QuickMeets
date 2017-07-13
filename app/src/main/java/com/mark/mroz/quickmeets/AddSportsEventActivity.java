@@ -206,7 +206,7 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
         endDateEditText.setClickable(true);
         locationEditText = (EditText) findViewById(R.id.locationEditText);
         locationEditText.setFocusable(false);
-        locationEditText.setClickable(false);
+        locationEditText.setOnClickListener(this);
         descriptionEditText = (EditText) findViewById(R.id.descriptionEditText);
     }
 
@@ -252,10 +252,7 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
                     SportEnum sport = SportEnum.getEnumFromString(spinner.getSelectedItem().toString());
                     int players = Integer.parseInt(playersEditText.getText().toString());
                     int intensity = Integer.parseInt(intensityTextView.getText().toString());
-
-                    // TODO - ADD Current User
-
-                    User creator = new User();
+                    User creator = manager.getCurrentUser();
                     List<User> participants = new ArrayList<User>();
 
                     Intent intent = getIntent();
@@ -307,6 +304,26 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
                 editLocationIntent.putExtra("Lat",lat);
                 editLocationIntent.putExtra("Lng",lng);
                 startActivity(editLocationIntent);
+
+                break;
+            case R.id.locationEditText:
+                Intent thisIntent = getIntent();
+                double lat1 = thisIntent.getDoubleExtra("Lat", 0L);
+                double lng1 = thisIntent.getDoubleExtra("Lng", 0L);
+
+                Intent editLocationTextViewIntent = new Intent(this, MainActivity.class);
+                editLocationTextViewIntent.putExtra("SETUP_OPTION","EDIT");
+                editLocationTextViewIntent.putExtra("sport",spinner.getSelectedItem().toString());
+                editLocationTextViewIntent.putExtra("players",playersEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("start_date",startDateEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("start_time",startTimeEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("end_date",endDateEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("end_time",endTimeEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("equipment",equipmentCheckBox.isChecked());
+                editLocationTextViewIntent.putExtra("description", descriptionEditText.getText().toString());
+                editLocationTextViewIntent.putExtra("Lat",lat1);
+                editLocationTextViewIntent.putExtra("Lng",lng1);
+                startActivity(editLocationTextViewIntent);
 
                 break;
             case R.id.startTimeEditText:
@@ -449,6 +466,15 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
                     endDateEditText.setError("Cannot be before Start date");
                     endTimeEditText.setError("Cannot be before Start date");
                     validated = false;
+                } else if (startDate.before(new Date()) || endDate.before(new Date())){
+                    if (startDate.before(new Date())) {
+                        startDateEditText.setError("Cannot be before today");
+                        startTimeEditText.setError("Cannot be before today");
+                    }
+                    if (endDate.before(new Date())) {
+                        endDateEditText.setError("Cannot be before today");
+                        endTimeEditText.setError("Cannot be before today");
+                    }
                 } else {
                     endDateEditText.setError(null);
                     endTimeEditText.setError(null);

@@ -121,6 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapView.setOnMapClickListener(this);
         mapView.setOnMapLongClickListener(this);
+        mapView.setOnMarkerClickListener(this);
         mapView.setOnMarkerDragListener(this);
 
         mapView.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
@@ -281,7 +282,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-
+        for (SportsEvent e : manager.getAllSportsEvents()) {
+            if (e.getLat() == marker.getPosition().latitude && e.getLng() == marker.getPosition().longitude) {
+                return true;
+            }
+        }
 
         return false;
     }
