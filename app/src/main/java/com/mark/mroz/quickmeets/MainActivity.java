@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -47,7 +48,7 @@ import java.util.List;
 
 import static android.support.v7.media.MediaControlIntent.EXTRA_MESSAGE;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener, View.OnClickListener, SearchView.OnQueryTextListener, GoogleMap.OnInfoWindowClickListener {
 
     private static GlobalSharedManager manager;
 
@@ -78,6 +79,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 doneEditButton.setOnClickListener(this);
             } else {
                 findViewById(R.id.doneEditButton).setVisibility(View.INVISIBLE);
+                SearchView s = (SearchView) findViewById(R.id.searchBar);
+                s.setOnQueryTextListener(this);
             }
 
             ArrayList<SportsEvent> arrayOfAllEvents = new ArrayList<SportsEvent>();
@@ -175,7 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapView.setOnMapClickListener(this);
         mapView.setOnMapLongClickListener(this);
         mapView.setOnMarkerDragListener(this);
-
+        mapView.setOnMarkerClickListener(this);
+        mapView.setOnInfoWindowClickListener(this);
         mapView.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
             public View getInfoWindow(Marker marker) {
@@ -191,11 +195,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (currentIntent.getStringExtra("SETUP_OPTION") == null) {
 
                 }
-                SportsEvent targetEvent;
-                for (SportsEvent event : manager.getAllSportsEvents()) {
+
+                for (final SportsEvent event : manager.getAllSportsEvents()) {
                     if (event.getLat() == marker.getPosition().latitude && event.getLng() == marker.getPosition().longitude) {
                         View v = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
-
 
                         TextView title = (TextView) v.findViewById(R.id.markerTitle);
                         TextView players = (TextView) v.findViewById(R.id.markerSnippet);
@@ -208,6 +211,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             equipmentBox.setChecked(true);
                             equipmentBox.toggle();
                         }
+
+                        //Button joinButton = (Button) v.findViewById(R.id.joinButton);
+
 
 
 
@@ -335,15 +341,36 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public boolean onMarkerClick(Marker marker) {
 
+        Intent intent = getIntent();
 
-        return false;
+        if (intent.getStringExtra("SETUP_OPTION") != null && intent.getStringExtra("SETUP_OPTION").equals("EDIT")) {
+            return true;
+        } else if (marker.isInfoWindowShown()) {
+
+            for (SportsEvent e : manager.getAllSportsEvents()) {
+                if (e.getLat() == marker.getPosition().latitude && e.getLng() == marker.getPosition().longitude) {
+
+                    Intent destinationIntent = new Intent(this, DetailActivity.class);
+                    destinationIntent.putExtra("sport", e.getSport());
+                    destinationIntent.putExtra("players", e.getMaxPlayers());
+                    destinationIntent.putExtra("start_time", e.getStartTime());
+                    destinationIntent.putExtra("end_time", e.getEndTime());
+                    destinationIntent.putExtra("equipment", e.getEquipment());
+                    destinationIntent.putExtra("description", e.getDescription());
+                    destinationIntent.putExtra("Lat", e.getLat());
+                    destinationIntent.putExtra("Lng", e.getLng());
+                    startActivity(destinationIntent);
+
+                    return true;
+                }
+            }
+        } else {
+            return false;
+        }
+
+
+        return true;
     }
-
-    // On Click Listener
-
-
-
-
 
 
 
@@ -406,4 +433,50 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+
+        if (newText.equals("")) {
+            mapView.clear();
+            for (SportsEvent e :manager.getAllSportsEvents()) {
+                mapView.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLng())));
+            }
+        } else {
+            mapView.clear();
+            for (SportsEvent e :manager.getAllSportsEvents()) {
+                if (e.toString().toLowerCase().contains(newText.toLowerCase()))
+                    mapView.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLng())));
+            }
+        }
+        return true;
+    }
+
+    // Google maps info click listener
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        if (marker.isInfoWindowShown()) {
+
+            for (SportsEvent e : manager.getAllSportsEvents()) {
+                if (e.getLat() == marker.getPosition().latitude && e.getLng() == marker.getPosition().longitude) {
+
+                    Intent destinationIntent = new Intent(this, DetailActivity.class);
+                    destinationIntent.putExtra("sport", e.getSport());
+                    destinationIntent.putExtra("players", e.getMaxPlayers());
+                    destinationIntent.putExtra("start_time", e.getStartTime());
+                    destinationIntent.putExtra("end_time", e.getEndTime());
+                    destinationIntent.putExtra("equipment", e.getEquipment());
+                    destinationIntent.putExtra("description", e.getDescription());
+                    destinationIntent.putExtra("Lat", e.getLat());
+                    destinationIntent.putExtra("Lng", e.getLng());
+                    startActivity(destinationIntent);
+                }
+            }
+        }
+    }
 }
