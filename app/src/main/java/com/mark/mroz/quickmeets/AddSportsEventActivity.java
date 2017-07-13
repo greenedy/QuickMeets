@@ -74,6 +74,7 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
         double lng = intent.getDoubleExtra("Lng", 0L);
 
         manager = new GlobalSharedManager(getApplicationContext());
+     //   getSupportActionBar().hide();
 
         initSubviews();
 

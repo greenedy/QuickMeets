@@ -2,18 +2,19 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ffffff</color>
+    <color name="colorAccent">#2196f3</color>
     <color name="colorOther">#2196f3</color>
-
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorLightWhite">#e0e0e0</color>
 
     <!-- 1st Gradient color -->
     <color name="colorPurple_A400">#D500F9</color>
-    <color name="colorPurple_900">#4A148C</color>
+    <color name="colorPurple_900">#4a148c</color>
     <!-- ./ 1st Gradient color -->
 
     <!-- 2nd Gradient color -->
     <color name="colorAmber_A400">#FFC400</color>
-    <color name="colorAmber_900">#FF6F00</color>
+    <color name="colorAmber_900">#ff6f00</color>
     <!-- ./ 2nd Gradient color -->
 
     <!-- 3rd Gradient color -->

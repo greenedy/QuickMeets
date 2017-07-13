@@ -23,7 +23,9 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -129,4 +131,6 @@
             android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

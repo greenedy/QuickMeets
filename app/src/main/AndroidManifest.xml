@@ -39,6 +39,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity android:name=".AddSportsEventActivity" />
+        <activity android:name=".UserProfile" />
+        <activity android:name=".UserProfileEdit" />
+
+
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>

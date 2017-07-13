@@ -38,18 +38,25 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        getSupportActionBar().hide();
+     //   getSupportActionBar().hide();
 
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_Email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_Password);
         inputEmail = (EditText) findViewById(R.id.input_email);
         inputPassword = (EditText) findViewById(R.id.input_password);
-
+        List<User> testSubscribedUsers = new ArrayList<User>();
+        testSubscribedUsers.add(new User());
+        testSubscribedUsers.add(new User());
         manager = new GlobalSharedManager(this);
-
+        manager.saveSportsEvent(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420604, (-75.676977),false,"A fun Event"));
+        manager.saveSportsEvent(new SportsEvent(0L, SportEnum.TENNIS,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676977),false,"A fun Event"));
         List<SportsEvent> testJoinedEvents = new ArrayList<SportsEvent>();
-        testJoinedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), null));
+        testJoinedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676872),false,"A fun Event"));
+        testJoinedEvents.add(new SportsEvent(0L, SportEnum.FOOTBALL,8, 3, null, null, new User(), testSubscribedUsers, 45.15, (-79.39),false,"A fun Event"));
         List<SportsEvent> testCreatedEvents = new ArrayList<SportsEvent>();
+        testCreatedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676872),false,"A fun Event"));
+        testCreatedEvents.add(new SportsEvent(0L, SportEnum.DANCING,8, 3, null, null, new User(), testSubscribedUsers, 45.15, (-79.39),false,"A fun Event"));
+
         List< SportEnum > testFavSports = new ArrayList<SportEnum>();
         testFavSports.add(SportEnum.SOCCER);
         manager.saveUser(new User(101, "Nathan", 22, "nathansemail@gmail.com", "password", testJoinedEvents, testCreatedEvents, testFavSports,"Hi I'm Nathan I like Soccer!"));

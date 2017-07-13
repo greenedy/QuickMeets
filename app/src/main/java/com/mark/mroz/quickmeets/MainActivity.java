@@ -3,16 +3,24 @@ package com.mark.mroz.quickmeets;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -25,6 +33,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.mark.mroz.quickmeets.enums.SportEnum;
+import com.mark.mroz.quickmeets.models.SportAdapter;
 import com.mark.mroz.quickmeets.models.SportsEvent;
 import com.mark.mroz.quickmeets.models.User;
 import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
@@ -50,12 +59,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (googleServicesAvailable()) {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main_bottom);
 
             manager = new GlobalSharedManager(getApplicationContext());
+//            getSupportActionBar().hide();
 
             initMap();
-
             Intent intent = getIntent();
             if (intent.getStringExtra("SETUP_OPTION") != null && intent.getStringExtra("SETUP_OPTION").equals("EDIT")) {
 
@@ -67,6 +76,57 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 findViewById(R.id.doneEditButton).setVisibility(View.INVISIBLE);
             }
+
+
+
+
+
+
+
+            ArrayList<SportsEvent> arrayOfAllEvents = new ArrayList<SportsEvent>();
+            // Create the adapter to convert the array to views
+            SportAdapter adapterC = new SportAdapter(this, arrayOfAllEvents);
+            // Attach the adapter to a ListView
+            ListView listViewC =  (ListView)findViewById(R.id.listViewAllEvents);  //id in xml
+            listViewC.setAdapter(adapterC);
+
+            // int heightC =0;
+            for (SportsEvent event : manager.getCurrentUser().getCreatedEvents()) { {
+                //     heightC= heightC+500;
+                adapterC.add(event);
+            }}
+
+            //  listViewC.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, heightC));
+
+
+
+
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_A);
+
+            bottomNavigationView.setOnNavigationItemSelectedListener(
+
+
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                        ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
+
+
+                        @Override
+                        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                            switch (item.getItemId()) {
+                                case R.id.action_map:
+                                    vf.setDisplayedChild(0);
+                                    break;
+                                case R.id.action_list:
+                                    vf.setDisplayedChild(1);
+                                    break;
+                                case R.id.action_profile:
+                                    onClickProfile();
+                                    break;
+                            }
+                            return false;
+                        }
+            });
 
         } else {
             // TODO - handle failed to link to google maps API
@@ -327,4 +387,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
+    public void onClickProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+
+
+    }
+    public void onClickProfile() {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+       // overridePendingTransition(0,0);
+
+    }
+
 }
