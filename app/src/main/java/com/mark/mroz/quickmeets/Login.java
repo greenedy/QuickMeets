@@ -38,7 +38,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-     //   getSupportActionBar().hide();
+        //   getSupportActionBar().hide();
 
         inputLayoutEmail = (TextInputLayout) findViewById(R.id.input_layout_Email);
         inputLayoutPassword = (TextInputLayout) findViewById(R.id.input_layout_Password);
@@ -108,7 +108,7 @@ public class Login extends AppCompatActivity {
         for (int x=0; x<userList.size(); x++) {
             System.out.println(userList.get(x));
             User user = userList.get(x);
-           //Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, user.getEmail(), Toast.LENGTH_SHORT).show();
             if(user.getEmail().equals(inputEmail.getText().toString()) && user.getPassword().equals(inputPassword.getText().toString())){
                 loginSuccess=true;
                 manager.setCurrentUser(user);

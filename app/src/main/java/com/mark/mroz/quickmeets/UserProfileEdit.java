@@ -121,6 +121,7 @@ public class UserProfileEdit extends AppCompatActivity {
         manager.setCurrentUser(cUser);
         Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);
+        finish();
 
 
     }

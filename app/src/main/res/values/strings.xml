@@ -9,6 +9,7 @@
         <item>Dancing</item>
     </string-array>
     <string name="action_settings">Settings</string>
+
     <string name="text_logo">Quick Meets</string>
     <string name="text_email">Email</string>
     <string name="text_password">Password</string>

@@ -101,6 +101,8 @@ public class UserProfile extends AppCompatActivity {
         }}
 
         listViewC.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, heightC));
+       // favourites.setText(currentUser);
+
 
 
     }

@@ -11,6 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,9 +65,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             setContentView(R.layout.activity_main_bottom);
 
             manager = new GlobalSharedManager(getApplicationContext());
-//            getSupportActionBar().hide();
 
             initMap();
+
             Intent intent = getIntent();
             if (intent.getStringExtra("SETUP_OPTION") != null && intent.getStringExtra("SETUP_OPTION").equals("EDIT")) {
 
@@ -76,12 +79,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 findViewById(R.id.doneEditButton).setVisibility(View.INVISIBLE);
             }
-
-
-
-
-
-
 
             ArrayList<SportsEvent> arrayOfAllEvents = new ArrayList<SportsEvent>();
             // Create the adapter to convert the array to views
@@ -341,6 +338,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         return false;
     }
+
+    // On Click Listener
+
+
+
+
+
+
+
 
     // On Click Listener
 
