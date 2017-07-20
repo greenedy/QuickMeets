@@ -6,118 +6,131 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context="com.mark.mroz.quickmeets.DetailActivity">
 
-<TextView
-    android:id="@+id/textView19"
-    android:layout_width="99dp"
-    android:layout_height="34dp"
-    android:gravity="left|center"
-    android:text="TextView"
-    android:textSize="20sp"
-    tools:layout_editor_absoluteX="16dp"
-    tools:layout_editor_absoluteY="419dp" />
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="123dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:text="Sport ID"
+        android:textColor="?android:attr/actionMenuTextColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.074" />
 
-<TextView
-    android:id="@+id/players"
-    android:layout_width="99dp"
-    android:layout_height="34dp"
-    android:gravity="left|center"
-    android:text="Players"
-    android:textSize="20sp"
-    tools:layout_editor_absoluteX="16dp"
-    tools:layout_editor_absoluteY="371dp" />
+    <TextView
+        android:id="@+id/txtPlayers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="87dp"
+        android:gravity="left|center"
+        android:text="@string/text_capacity"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgSportView" />
 
-<TextView
-    android:id="@+id/playervalue"
-    android:layout_width="192dp"
-    android:layout_height="34dp"
-    android:gravity="left|center"
-    android:text="Number of ppl"
-    android:textSize="20sp"
-    tools:layout_editor_absoluteX="172dp"
-    tools:layout_editor_absoluteY="371dp" />
-
-<TextView
-    android:id="@+id/textView4"
-    android:layout_width="123dp"
-    android:layout_height="40dp"
-    android:fontFamily="serif"
-    android:gravity="center"
-    android:text="Sport ID"
-    android:textColor="?android:attr/actionMenuTextColor"
-    android:textSize="20sp"
-    tools:layout_editor_absoluteX="131dp"
-    tools:layout_editor_absoluteY="262dp" />
-
-<ImageView
-    android:id="@+id/imageView3"
-    android:layout_width="385dp"
-    android:layout_height="478dp"
-    app:srcCompat="@drawable/background_image"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="-164dp" />
-
-<ImageView
-    android:id="@+id/eventPic"
-    android:layout_width="162dp"
-    android:layout_height="159dp"
-    app:srcCompat="@drawable/default_sporttype"
-    tools:layout_editor_absoluteX="111dp"
-    tools:layout_editor_absoluteY="103dp" />
-
-<ImageView
-    android:id="@+id/userPic"
-    android:layout_width="80dp"
-    android:layout_height="127dp"
-    app:srcCompat="@drawable/anotherusericon"
-    tools:layout_editor_absoluteX="7dp"
-    tools:layout_editor_absoluteY="-3dp" />
-
-<TextView
-    android:id="@+id/userId"
-    android:layout_width="123dp"
-    android:layout_height="50dp"
-    android:fontFamily="cursive"
-    android:gravity="center"
-    android:text="Qasim "
-    android:textColor="?android:attr/colorMultiSelectHighlight"
-    android:textSize="35sp"
-    tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="103dp" />
-
-<TextView
-    android:id="@+id/textView7"
-    android:layout_width="99dp"
-    android:layout_height="34dp"
-    android:gravity="left|center"
-    android:text="Intencity"
-    android:textSize="20sp"
-    tools:layout_editor_absoluteX="16dp"
-    tools:layout_editor_absoluteY="325dp" />
+    <TextView
+        android:id="@+id/txtIntensity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left|center"
+        android:text="@string/text_intensity"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPlayers" />
 
 
-<Button
-    android:id="@+id/button3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Button"
-    tools:layout_editor_absoluteX="123dp"
-    tools:layout_editor_absoluteY="472dp" />
+    <TextView
+        android:id="@+id/txtEventCreator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left|center"
+        android:text="@string/text_EventCreator"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtEquipment" />
 
-<RatingBar
-    android:id="@+id/ratingBar2"
-    android:layout_width="196dp"
-    android:layout_height="53dp"
-    android:numStars="5"
-    tools:layout_editor_absoluteX="172dp"
-    tools:layout_editor_absoluteY="318dp" />
+    <TextView
+        android:id="@+id/txtEquipment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="left|center"
+        android:text="@string/text_equipment"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtIntensity" />
 
-<ImageView
-    android:id="@+id/imageView6"
-    android:layout_width="187dp"
-    android:layout_height="43dp"
-    app:srcCompat="@drawable/available_icon"
-    tools:layout_editor_absoluteX="172dp"
-    tools:layout_editor_absoluteY="410dp" />
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:gravity="left|center"
+        android:text="@string/text_description"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtEventCreator" />
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="left|center"
+        android:text="Date"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgSportView" />
+
+    <TextView
+        android:id="@+id/txtDate2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left|center"
+        android:text="Date2"
+        android:textSize="20sp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+
+    <Button
+        android:id="@+id/btnJoin"
+        android:layout_width="127dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="38dp"
+        android:backgroundTint="@color/colorAccent"
+        android:onClick="onJoin"
+        android:text="@string/text_join"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgSportView"
+        android:layout_width="76dp"
+        android:layout_height="86dp"
+        app:srcCompat="@drawable/dancing"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
 
 </android.support.constraint.ConstraintLayout>
 

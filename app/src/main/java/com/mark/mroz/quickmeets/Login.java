@@ -17,6 +17,7 @@ import com.mark.mroz.quickmeets.models.SportsEvent;
 import com.mark.mroz.quickmeets.models.User;
 import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,39 +49,42 @@ public class Login extends AppCompatActivity {
         testSubscribedUsers.add(new User());
         testSubscribedUsers.add(new User());
         manager = new GlobalSharedManager(this);
-        manager.saveSportsEvent(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420604, (-75.676977),false,"A fun Event"));
-        manager.saveSportsEvent(new SportsEvent(0L, SportEnum.TENNIS,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676977),false,"A fun Event"));
-        List<SportsEvent> testJoinedEvents = new ArrayList<SportsEvent>();
-        testJoinedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676872),false,"A fun Event"));
-        testJoinedEvents.add(new SportsEvent(0L, SportEnum.FOOTBALL,8, 3, null, null, new User(), testSubscribedUsers, 45.15, (-79.39),false,"A fun Event"));
-        List<SportsEvent> testCreatedEvents = new ArrayList<SportsEvent>();
-        testCreatedEvents.add(new SportsEvent(0L, SportEnum.SOCCER,8, 3, null, null, new User(), testSubscribedUsers, 45.420600, (-75.676872),false,"A fun Event"));
-        testCreatedEvents.add(new SportsEvent(0L, SportEnum.DANCING,8, 3, null, null, new User(), testSubscribedUsers, 45.15, (-79.39),false,"A fun Event"));
+        //Default Events to populate map
+        if(manager.getDefaults()==false) {
 
-        List< SportEnum > testFavSports = new ArrayList<SportEnum>();
-        testFavSports.add(SportEnum.SOCCER);
-        manager.saveUser(new User(101, "Nathan", 22, "nathansemail@gmail.com", "password", testJoinedEvents, testCreatedEvents, testFavSports,"Hi I'm Nathan I like Soccer!"));
-        userList= manager.getAllUsers();
-        System.out.println(manager.getCurrentUser().getName());
+            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.SOCCER, 8, 3, new Date(117, 7, 20, 8, 30), new Date(117, 7, 20, 10, 30), new User("Tom"), testSubscribedUsers, 45.420604, (-75.676977), false, "A fun Soccer match!"));
+            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.TENNIS, 6, 2, new Date(117, 7, 25, 13, 30), new Date(117, 7, 25, 15, 30), new User("Sally"), testSubscribedUsers, 45.421282, (-75.690207), false, "Newbies at Tennis"));
+            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.FOOTBALL, 16, 5, new Date(117, 7, 29, 12, 00), new Date(117, 7, 29, 17, 30), new User("Frank"), testSubscribedUsers, 45.428083, (-75.672777), false, "INTENSE Football Game!!!"));
+            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.DANCING, 4, 4, new Date(117, 7, 20, 11, 30), new Date(117, 7, 20, 14, 00), new User("Britney"), testSubscribedUsers, 45.424913, -75.685544, false, "Looking for Partners"));
+
+            List<SportsEvent> testJoinedEvents = new ArrayList<SportsEvent>();
+            testJoinedEvents.add(manager.getAllSportsEvents().get(0));
+            testJoinedEvents.add(manager.getAllSportsEvents().get(3));
+            List<SportsEvent> testCreatedEvents = new ArrayList<SportsEvent>();
+            testCreatedEvents.add(manager.getAllSportsEvents().get(3));
+
+            List<SportEnum> testFavSports = new ArrayList<SportEnum>();
+            testFavSports.add(SportEnum.SOCCER);
+            //Preset User
+            manager.saveUser(new User(101, "Bob", 22, "bob@gmail.com", "password", testJoinedEvents, testCreatedEvents, testFavSports, "Hi I'm Bob I like Soccer!"));
+
+            manager.setDefaults();
+        }
+            userList= manager.getAllUsers();
+        //System.out.println(manager.getCurrentUser().getName());
         if(manager.getCurrentUser().getName().equals("Test User")){
 
         }
         else{
             Intent intent = new Intent(this, MainActivity.class);
+
             startActivity(intent);
             finish();
         }
 
-        // init constraintLayout
         constraintLayout = (ConstraintLayout) findViewById(R.id.constraintLayout);
-
-        // initializing animation drawable by getting background from constraint layout
         animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-
-        // setting enter fade animation duration to 5 seconds
         animationDrawable.setEnterFadeDuration(5000);
-
-        // setting exit fade animation duration to 2 seconds
         animationDrawable.setExitFadeDuration(2000);
     }
 
@@ -88,7 +92,6 @@ public class Login extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         if (animationDrawable != null && !animationDrawable.isRunning()) {
-            // start the animation
             animationDrawable.start();
         }
 
@@ -98,7 +101,6 @@ public class Login extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         if (animationDrawable != null && animationDrawable.isRunning()) {
-            // stop the animation
             animationDrawable.stop();
         }
     }
@@ -118,6 +120,7 @@ public class Login extends AppCompatActivity {
 
         if(loginSuccess) {
             Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
         else{

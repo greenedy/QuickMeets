@@ -30,7 +30,7 @@
     <string name="text_CreatedEvents">Created Events</string>
     <string name="error_name">Enter your name</string>
     <string name="error_email">Enter a valid email address</string>
-    <string name="error_password">Enter a password</string>
+    <string name="error_password">Enter a valid password</string>
     <string name="text_AccountDetails">Account Details</string>
     <string name="text_equipment">Equipment</string>
     <string name="text_capacity">Capacity</string>
@@ -40,6 +40,16 @@
     <string name="text_profile">Profile</string>
     <string name="text_search">Search Events</string>
     <string name="error_age">Please enter a valid Age</string>
+    <string name="text_changePassword">Change Password</string>
+    <string name="text_update">Update</string>
+    <string name="text_newpassword">New Password</string>
+    <string name="text_join">Join</string>
+    <string name="text_leave">Leave</string>
+    <string name="text_description">Description</string>
+    <string name="text_EventCreator">Event Creator</string>
+    <string name="error_passMatch">Passwords do not match</string>
+
+
     <string name="error_bio">Bio can only be 30 characters long</string>
 
 

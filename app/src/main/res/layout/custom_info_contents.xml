@@ -47,7 +47,7 @@ android:orientation="horizontal">
             android:id="@+id/joinButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Join" />
+            android:text="View" />
 
     </LinearLayout>
 

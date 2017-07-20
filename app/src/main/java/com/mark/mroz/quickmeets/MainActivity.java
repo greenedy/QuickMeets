@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -42,6 +43,7 @@ import com.mark.mroz.quickmeets.models.SportsEvent;
 import com.mark.mroz.quickmeets.models.User;
 import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     MarkerOptions marker;
     LatLng updatedPosition;
     Boolean markerClicked = false;
+    ListView listViewC;
 
     Button doneEditButton;
 
@@ -73,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (intent.getStringExtra("SETUP_OPTION") != null && intent.getStringExtra("SETUP_OPTION").equals("EDIT")) {
 
                 findViewById(R.id.searchBar).setVisibility(View.INVISIBLE);
-                findViewById(R.id.profileButton).setVisibility(View.INVISIBLE);
+                //findViewById(R.id.profileButton).setVisibility(View.INVISIBLE);
                 findViewById(R.id.doneEditButton).setVisibility(View.VISIBLE);
                 doneEditButton = (Button) findViewById(R.id.doneEditButton);
                 doneEditButton.setOnClickListener(this);
@@ -87,29 +90,42 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             // Create the adapter to convert the array to views
             SportAdapter adapterC = new SportAdapter(this, arrayOfAllEvents);
             // Attach the adapter to a ListView
-            ListView listViewC =  (ListView)findViewById(R.id.listViewAllEvents);  //id in xml
+            listViewC =  (ListView)findViewById(R.id.listViewAllEvents);  //id in xml
             listViewC.setAdapter(adapterC);
 
             // int heightC =0;
-            for (SportsEvent event : manager.getCurrentUser().getCreatedEvents()) { {
+            for (SportsEvent event : manager.getAllSportsEvents()) { {
                 //     heightC= heightC+500;
                 adapterC.add(event);
             }}
 
-            //  listViewC.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, heightC));
 
+            //When an event from the list is clicked open the event details and pass information in intent to it
+            listViewC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                    SportsEvent selectedFromList =(SportsEvent) (listViewC.getItemAtPosition(myItemInt));
+                    Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                    destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
+                    destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
+                    destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));
+                    destinationIntent.putExtra("players", Integer.toString(selectedFromList.getMaxPlayers()));
+                    destinationIntent.putExtra("eventCreator",selectedFromList.getEventCreator().getName());
+                    destinationIntent.putExtra("start_time",  DateFormat.getDateTimeInstance().format(selectedFromList.getStartTime()));
+                    destinationIntent.putExtra("end_time", DateFormat.getDateTimeInstance().format(selectedFromList.getEndTime()));
+                    destinationIntent.putExtra("equipment", selectedFromList.getEquipment().toString());
+                    destinationIntent.putExtra("description", selectedFromList.getDescription());
+                    destinationIntent.putExtra("Lat", selectedFromList.getLat());
+                    destinationIntent.putExtra("Lng", selectedFromList.getLng());
+                    startActivity(destinationIntent);
 
+                }
+            });
 
-
+            //Bottom navigation bar code that displays what has been selected from the bottom menu
             BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_A);
-
             bottomNavigationView.setOnNavigationItemSelectedListener(
-
-
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                         ViewFlipper vf = (ViewFlipper)findViewById(R.id.vf);
-
-
                         @Override
                         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -134,6 +150,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
 
     }
+
+
 
     // Init
 
@@ -199,6 +217,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 for (final SportsEvent event : manager.getAllSportsEvents()) {
                     if (event.getLat() == marker.getPosition().latitude && event.getLng() == marker.getPosition().longitude) {
                         View v = getLayoutInflater().inflate(R.layout.custom_info_contents, null);
+
 
                         TextView title = (TextView) v.findViewById(R.id.markerTitle);
                         TextView players = (TextView) v.findViewById(R.id.markerSnippet);
@@ -314,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             intent.putExtra("Lng", point.longitude);
             startActivity(intent);
 
-
             markerClicked = false;
         }
 
@@ -372,7 +390,21 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
+
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            initMap();
+        }
+         if(resultCode==RESULT_CANCELED){
+             mapView.clear();
+             for (SportsEvent e : manager.getAllSportsEvents()) {
+                 setPinsForLocation(new LatLng(e.getLat(), e.getLng()));
+             }
+        }
+    }
 
 
     // On Click Listener
@@ -420,12 +452,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
     }
-    public void onClickProfile(View view) {
-        Intent intent = new Intent(this, UserProfile.class);
-        startActivity(intent);
 
-
-    }
     public void onClickProfile() {
         Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);
@@ -465,12 +492,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             for (SportsEvent e : manager.getAllSportsEvents()) {
                 if (e.getLat() == marker.getPosition().latitude && e.getLng() == marker.getPosition().longitude) {
 
-                    Intent destinationIntent = new Intent(this, DetailActivity.class);
-                    destinationIntent.putExtra("sport", e.getSport());
-                    destinationIntent.putExtra("players", e.getMaxPlayers());
-                    destinationIntent.putExtra("start_time", e.getStartTime());
-                    destinationIntent.putExtra("end_time", e.getEndTime());
-                    destinationIntent.putExtra("equipment", e.getEquipment());
+                    Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                    destinationIntent.putExtra("sport", e.getSport().toString());
+                    destinationIntent.putExtra("joinedPeople", Integer.toString(e.getSubscribedUsers().size()));
+                    destinationIntent.putExtra("intensity", Integer.toString(e.getIntensity()));
+                    destinationIntent.putExtra("players", Integer.toString(e.getMaxPlayers()));
+                    destinationIntent.putExtra("eventCreator",e.getEventCreator().getName());
+                    destinationIntent.putExtra("start_time",  DateFormat.getDateTimeInstance().format(e.getStartTime()));
+                    destinationIntent.putExtra("end_time", DateFormat.getDateTimeInstance().format(e.getEndTime()));
+                    destinationIntent.putExtra("equipment", e.getEquipment().toString());
                     destinationIntent.putExtra("description", e.getDescription());
                     destinationIntent.putExtra("Lat", e.getLat());
                     destinationIntent.putExtra("Lng", e.getLng());

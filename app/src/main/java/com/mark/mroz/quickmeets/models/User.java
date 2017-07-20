@@ -43,6 +43,15 @@ public class User {
         this.bio = "Create a Bio";
 
     }
+    public User(String name) {
+        this.name = name;
+        this.age = 0;
+        this.joinedEvents = joinedEvents;
+        this.createdEvents = createdEvents;
+        this.favouriteSports = favouriteSports;
+        this.bio = "I have no Bio";
+
+    }
     public User(String name, String email, String password) {
         this.name = name;
         this.age = 0;

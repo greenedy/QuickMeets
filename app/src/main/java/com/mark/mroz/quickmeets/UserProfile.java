@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
@@ -30,6 +31,7 @@ import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
 
 import org.w3c.dom.Text;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,7 @@ public class UserProfile extends AppCompatActivity {
     int currentUserID;
     User currentUser;
     CollapsingToolbarLayout collapsingToolbar;
+    ListView listView, listViewC;
 
     private TextView userName, userAge, userBio, favourites;
 
@@ -60,7 +63,11 @@ public class UserProfile extends AppCompatActivity {
         userBio = (TextView) findViewById(R.id.txtBio);
         favourites =(TextView) findViewById(R.id.lblFavSports);
 
-        System.out.println();
+       setup();
+
+    }
+
+    private boolean setup(){
         collapsingToolbar.setTitle(currentUser.getName());
         if(currentUser.getAge()!=0) {
             userAge.setText("Age: " + Integer.toString(currentUser.getAge()));
@@ -75,7 +82,7 @@ public class UserProfile extends AppCompatActivity {
         // Create the adapter to convert the array to views
         SportAdapter adapter = new SportAdapter(this, arrayOfJoinedEvents);
         // Attach the adapter to a ListView
-        ListView listView =  (ListView)findViewById(R.id.listViewJoinedEvents);  //id in xml
+        listView =  (ListView)findViewById(R.id.listViewJoinedEvents);
         listView.setAdapter(adapter);
 
         int height =0;
@@ -86,12 +93,34 @@ public class UserProfile extends AppCompatActivity {
 
         listView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, height));
 
+        //When an event from the list is clicked open the event details and pass information in intent to it
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                SportsEvent selectedFromList =(SportsEvent) (listView.getItemAtPosition(myItemInt));
+                Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
+                destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
+                destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));
+                destinationIntent.putExtra("players", Integer.toString(selectedFromList.getMaxPlayers()));
+                destinationIntent.putExtra("eventCreator",selectedFromList.getEventCreator().getName());
+                destinationIntent.putExtra("start_time",  DateFormat.getDateTimeInstance().format(selectedFromList.getStartTime()));
+                destinationIntent.putExtra("end_time", DateFormat.getDateTimeInstance().format(selectedFromList.getEndTime()));
+                destinationIntent.putExtra("equipment", selectedFromList.getEquipment().toString());
+                destinationIntent.putExtra("description", selectedFromList.getDescription());
+                destinationIntent.putExtra("Lat", selectedFromList.getLat());
+                destinationIntent.putExtra("Lng", selectedFromList.getLng());
+                startActivity(destinationIntent);
+
+            }
+        });
+
+
         //------
         ArrayList<SportsEvent> arrayOfCreatedEvents = new ArrayList<SportsEvent>();
         // Create the adapter to convert the array to views
         SportAdapter adapterC = new SportAdapter(this, arrayOfCreatedEvents);
         // Attach the adapter to a ListView
-        ListView listViewC =  (ListView)findViewById(R.id.listViewCreatedEvents);  //id in xml
+        listViewC =  (ListView)findViewById(R.id.listViewCreatedEvents);  //id in xml
         listViewC.setAdapter(adapterC);
 
         int heightC =0;
@@ -101,11 +130,29 @@ public class UserProfile extends AppCompatActivity {
         }}
 
         listViewC.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, heightC));
-       // favourites.setText(currentUser);
+        //When an event from the list is clicked open the event details and pass information in intent to it
+        listViewC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
+                SportsEvent selectedFromList =(SportsEvent) (listViewC.getItemAtPosition(myItemInt));
+                Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
+                destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
+                destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));
+                destinationIntent.putExtra("players", Integer.toString(selectedFromList.getMaxPlayers()));
+                destinationIntent.putExtra("eventCreator",selectedFromList.getEventCreator().getName());
+                destinationIntent.putExtra("start_time",  DateFormat.getDateTimeInstance().format(selectedFromList.getStartTime()));
+                destinationIntent.putExtra("end_time", DateFormat.getDateTimeInstance().format(selectedFromList.getEndTime()));
+                destinationIntent.putExtra("equipment", selectedFromList.getEquipment().toString());
+                destinationIntent.putExtra("description", selectedFromList.getDescription());
+                destinationIntent.putExtra("Lat", selectedFromList.getLat());
+                destinationIntent.putExtra("Lng", selectedFromList.getLng());
+                startActivity(destinationIntent);
 
-
-
+            }
+        });
+        return true;
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +172,7 @@ public class UserProfile extends AppCompatActivity {
 
             case R.id.action_settings:
                 Intent intent = new Intent(this, UserProfileEdit.class);
-                startActivity(intent);
+                startActivityForResult(intent, 1);
                 return true;
             case android.R.id.home:
                 onBackPressed();
@@ -135,12 +182,14 @@ public class UserProfile extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-
-
-
-
-
-
+        currentUser = manager.getCurrentUser();
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==RESULT_OK){
+            setup();
+        }
+    }
 
 }

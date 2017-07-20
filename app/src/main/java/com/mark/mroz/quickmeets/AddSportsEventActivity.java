@@ -255,7 +255,7 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
 
                     // TODO - ADD Current User
 
-                    User creator = new User();
+                    User creator = manager.getCurrentUser();
                     List<User> participants = new ArrayList<User>();
 
                     Intent intent = getIntent();
@@ -273,7 +273,9 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
 
                         manager.saveSportsEvent(event);
 
+
                         Intent mapIntent = new Intent(this, MainActivity.class);
+                        mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mapIntent);
 
                     } catch (ParseException e) {
@@ -283,8 +285,9 @@ public class AddSportsEventActivity extends AppCompatActivity implements View.On
                 break;
             case R.id.cancelButton:
 
-                Intent mapIntent = new Intent(this, MainActivity.class);
-                mapIntent.putExtra("SETUP_OPTION","CANCEL");
+               Intent mapIntent = new Intent(this, MainActivity.class);
+              mapIntent.putExtra("SETUP_OPTION","CANCEL");
+                mapIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(mapIntent);
 
                 break;

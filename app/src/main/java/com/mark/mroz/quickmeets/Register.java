@@ -30,7 +30,6 @@ public class Register extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-//        getSupportActionBar().hide();
 
         manager = new GlobalSharedManager(this);
 
@@ -50,6 +49,8 @@ public class Register extends AppCompatActivity {
         inputName.addTextChangedListener(new MyTextWatcher(inputName));
         inputEmail.addTextChangedListener(new MyTextWatcher(inputEmail));
         inputPassword.addTextChangedListener(new MyTextWatcher(inputPassword));
+        inputConfirmPassword.addTextChangedListener(new MyTextWatcher(inputConfirmPassword));
+
 
     }
 
@@ -81,11 +82,13 @@ public class Register extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        if (inputPassword.getText().toString().trim().isEmpty()) {
+        if (inputPassword.getText().toString().trim().isEmpty() ) {
             inputLayoutPassword.setError(getString(R.string.error_password));
             requestFocus(inputPassword);
             return false;
-        } else {
+        }
+
+        else {
             inputLayoutPassword.setErrorEnabled(false);
         }
 
@@ -116,12 +119,19 @@ public class Register extends AppCompatActivity {
             return;
         }
 
+        if(!(inputPassword.getText().toString().equals(inputConfirmPassword.getText().toString()))) {
+            inputLayoutPassword.setError(getString(R.string.error_passMatch));
+            requestFocus(inputPassword);
+            return;
+        }
+
         User newUser = new User(inputName.getText().toString(),inputEmail.getText().toString(),inputPassword.getText().toString());
         manager.saveUser(newUser);
         manager.setCurrentUser(newUser);
-        Intent intent = new Intent(this, UserProfile.class);
-        startActivity(intent);
 
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
 
     }
     private class MyTextWatcher implements TextWatcher {

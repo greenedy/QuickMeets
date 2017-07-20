@@ -21,7 +21,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class GlobalSharedManager {
 
     private Context appContext;
-
+    private static final String defaultsLoaded = "defaultsLoaded";
     private static final String USERS_LIST = "UserList";
     private static final String ALL_USERS = "allUsers";
     private static final String CURRENT_USER = "CurrentUser";
@@ -129,6 +129,35 @@ public class GlobalSharedManager {
         editor.putString(CURRENT_USER, eventsJson);
 
         return editor.commit();
+    }
+    public void setDefaults() {
+        SharedPreferences dloaded = appContext.getSharedPreferences(defaultsLoaded, MODE_PRIVATE);
+        SharedPreferences.Editor editor  = dloaded.edit();
+
+
+        String eventsJson = new Gson().toJson("true");
+
+        editor.putString(defaultsLoaded, eventsJson);
+
+        editor.commit();
+
+    }
+    public boolean getDefaults(){
+        SharedPreferences users = appContext.getSharedPreferences(defaultsLoaded, MODE_PRIVATE);
+        String json = users.getString(defaultsLoaded, null);
+
+        if (json == null) {
+            return false;
+        }
+        Type type = new TypeToken<String>(){}.getType();
+        String r = new Gson().fromJson(json, type);
+        if(r.equals("true")){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
     public User getCurrentUser() {

@@ -91,25 +91,5 @@ public class SportAdapter extends ArrayAdapter<SportsEvent>{
         return convertView;
     }
 
-  //  @Override
-  //  public View getView(int position, View convertView, ViewGroup parent) {
-        // ...
-        // Lookup view for data population
-   //   / Button btButton = (Button) convertView.findViewById(R.id.btButton);
-        // Cache row position inside the button using `setTag`
-    //    btButton.setTag(position);
-        // Attach the click event handler
-     //   btButton.setOnClickListener(new View.OnClickListener() {
-     //       @Override
-     //       public void onClick(View view) {
-      //          int position = (Integer) view.getTag();
-                // Access the row position here to get the correct data item
-      //          SportsEvent sEvent = getItem(position);
-                // Do what you want here...
-      //      }
-    ////    });
-        // ... other view population as needed...
-        // Return the completed view
-     //   return convertView;
-   // }
+
 }
