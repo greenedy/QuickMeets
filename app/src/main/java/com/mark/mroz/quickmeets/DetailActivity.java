@@ -11,7 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.mark.mroz.quickmeets.models.SportsEvent;
+import com.mark.mroz.quickmeets.models.User;
 import com.mark.mroz.quickmeets.shared.GlobalSharedManager;
+
+import java.util.List;
 
 import static com.mark.mroz.quickmeets.enums.SportEnum.DANCING;
 import static com.mark.mroz.quickmeets.enums.SportEnum.FOOTBALL;
@@ -24,6 +29,7 @@ public class DetailActivity extends AppCompatActivity {
     private TextView txtEventSport, txtCapcity, txtIntensity, txtEquipment, txtEventCreator, txtDescription, txtStartTime, txtEndTime,txtStartDate,txtEndDate;
     private ImageView sportpic;
     private Button btnJoin;
+    private SportsEvent event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +60,15 @@ public class DetailActivity extends AppCompatActivity {
         joinedPeople = mIntent.getStringExtra("joinedPeople");
         startTime = mIntent.getStringExtra("start_time");
         endTime = mIntent.getStringExtra("end_time");
+        event= new Gson().fromJson( mIntent.getStringExtra("sportevent"), SportsEvent.class);
 
         //Set the values int the labels
         txtEventSport.setText(eventSport);
-        txtCapcity.setText("Capacity: "+joinedPeople + " / " + capacity + " Players");
-        txtIntensity.setText("Intensity: "+ intensity);
-        txtEquipment.setText("Equipment: "+ equipement);
-        txtDescription.setText("Description: "+ description);
-        txtEventCreator.setText("Event Creator: "+ eventCreator);
+        txtCapcity.setText("Capacity: "+ event.getSubscribedUsers().size() + " / " + event.getMaxPlayers() + " Players");
+        txtIntensity.setText("Intensity: "+ event.getIntensity());
+        txtEquipment.setText("Equipment: "+ event.getEquipment());
+        txtDescription.setText("Description: "+ event.getDescription());
+        txtEventCreator.setText("Event Creator: "+ event.getEventCreator().getName());
         txtStartDate.setText("Start: " + startTime);
         txtEndDate.setText("End: "+endTime);
         Drawable drawableImage = null;
@@ -85,14 +92,43 @@ public class DetailActivity extends AppCompatActivity {
             sportpic.setImageDrawable(drawableImage);
        }
 
+       if(event.getSubscribedUsers().size()==event.getMaxPlayers()){
+           btnJoin.setText("Full");
+           btnJoin.setEnabled(false);
+       }
+       for (User u : event.getSubscribedUsers()){
+           if(u.equals(manager.getCurrentUser())){
+               btnJoin.setText("Joined");
+               btnJoin.setEnabled(false);
+           }
+       }
+
+
     }
 
     //When the join button is clicked
     public void onJoin(View view) {
 
+     //   manager.addUserToEvent(manager.getCurrentUser(),event);
+      //  manager.getCurrentUser().addJoinedEvent(event);
+       // List<SportsEvent> list =manager.getCurrentUser().getJoinedEvents() ;
+       // list.add(event);
+       // for (int x=0; x<list.size(); x++) {
+       //     System.out.println("Event1: "+list.get(x).getSport().toString());
+       // }
+       // manager.getCurrentUser().setJoinedEvents(list);
+       // manager.setCurrentUser(manager.getCurrentUser());
+
+        User cu = manager.getCurrentUser();
+        cu.addJoinedEvent(event);
+        manager.setCurrentUser(cu);
+
+
         Toast.makeText(getApplicationContext(), "Joined Event", Toast.LENGTH_LONG).show();
         btnJoin.setText("Joined");
         btnJoin.setEnabled(false);
+
+
     }
 
 

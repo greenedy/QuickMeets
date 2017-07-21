@@ -74,7 +74,7 @@ public class GlobalSharedManager {
         clearAllSportsEvents();
 
         for (SportsEvent e : allEvents) {
-            if (e.getLng() == updatedEvent.getLng() && e.getLng() == e.getLng()) {
+            if (e.getLng() == updatedEvent.getLng() && e.getLat() == updatedEvent.getLat()) {
                 updated = saveSportsEvent(updatedEvent);
             } else {
                 updated = saveSportsEvent(e);
@@ -91,6 +91,7 @@ public class GlobalSharedManager {
         subscribers.add(user);
 
         SportsEvent eventToSave = event;
+
         eventToSave.setSubscribedUsers(subscribers);
 
         return updateSportsEvent(eventToSave);

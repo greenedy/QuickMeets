@@ -23,6 +23,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.mark.mroz.quickmeets.enums.SportEnum;
 import com.mark.mroz.quickmeets.models.SportAdapter;
 import com.mark.mroz.quickmeets.models.SportsEvent;
@@ -97,7 +98,9 @@ public class UserProfile extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 SportsEvent selectedFromList =(SportsEvent) (listView.getItemAtPosition(myItemInt));
+                String s = (new Gson().toJson(selectedFromList));
                 Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                destinationIntent.putExtra("sportevent", s);
                 destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
                 destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
                 destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));
@@ -134,7 +137,9 @@ public class UserProfile extends AppCompatActivity {
         listViewC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                 SportsEvent selectedFromList =(SportsEvent) (listViewC.getItemAtPosition(myItemInt));
+                String s = (new Gson().toJson(selectedFromList));
                 Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                destinationIntent.putExtra("sportevent", s);
                 destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
                 destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
                 destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));

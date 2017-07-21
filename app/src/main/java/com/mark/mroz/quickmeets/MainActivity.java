@@ -37,6 +37,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.Gson;
 import com.mark.mroz.quickmeets.enums.SportEnum;
 import com.mark.mroz.quickmeets.models.SportAdapter;
 import com.mark.mroz.quickmeets.models.SportsEvent;
@@ -104,7 +105,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             listViewC.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> myAdapter, View myView, int myItemInt, long mylng) {
                     SportsEvent selectedFromList =(SportsEvent) (listViewC.getItemAtPosition(myItemInt));
+                    String s = (new Gson().toJson(selectedFromList));
                     Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                    destinationIntent.putExtra("sportevent", s);
                     destinationIntent.putExtra("sport", selectedFromList.getSport().toString());
                     destinationIntent.putExtra("joinedPeople", Integer.toString(selectedFromList.getSubscribedUsers().size()));
                     destinationIntent.putExtra("intensity", Integer.toString(selectedFromList.getIntensity()));
@@ -491,8 +494,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             for (SportsEvent e : manager.getAllSportsEvents()) {
                 if (e.getLat() == marker.getPosition().latitude && e.getLng() == marker.getPosition().longitude) {
-
+                    String s = (new Gson().toJson(e));
                     Intent destinationIntent = new Intent(getApplicationContext(), DetailActivity.class);
+                    destinationIntent.putExtra("sportevent", s);
                     destinationIntent.putExtra("sport", e.getSport().toString());
                     destinationIntent.putExtra("joinedPeople", Integer.toString(e.getSubscribedUsers().size()));
                     destinationIntent.putExtra("intensity", Integer.toString(e.getIntensity()));

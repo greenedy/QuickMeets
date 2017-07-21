@@ -55,7 +55,7 @@ public class Login extends AppCompatActivity {
             manager.saveSportsEvent(new SportsEvent(0L, SportEnum.SOCCER, 8, 3, new Date(117, 7, 20, 8, 30), new Date(117, 7, 20, 10, 30), new User("Tom"), testSubscribedUsers, 45.420604, (-75.676977), false, "A fun Soccer match!"));
             manager.saveSportsEvent(new SportsEvent(0L, SportEnum.TENNIS, 6, 2, new Date(117, 7, 25, 13, 30), new Date(117, 7, 25, 15, 30), new User("Sally"), testSubscribedUsers, 45.421282, (-75.690207), false, "Newbies at Tennis"));
             manager.saveSportsEvent(new SportsEvent(0L, SportEnum.FOOTBALL, 16, 5, new Date(117, 7, 29, 12, 00), new Date(117, 7, 29, 17, 30), new User("Frank"), testSubscribedUsers, 45.428083, (-75.672777), false, "INTENSE Football Game!!!"));
-            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.DANCING, 4, 4, new Date(117, 7, 20, 11, 30), new Date(117, 7, 20, 14, 00), new User("Britney"), testSubscribedUsers, 45.424913, -75.685544, false, "Looking for Partners"));
+            manager.saveSportsEvent(new SportsEvent(0L, SportEnum.DANCING, 4, 4, new Date(117, 7, 20, 11, 30), new Date(117, 7, 20, 14, 00), new User("Bob"), testSubscribedUsers, 45.424913, -75.685544, false, "Looking for Partners"));
 
             List<SportsEvent> testJoinedEvents = new ArrayList<SportsEvent>();
             testJoinedEvents.add(manager.getAllSportsEvents().get(0));
