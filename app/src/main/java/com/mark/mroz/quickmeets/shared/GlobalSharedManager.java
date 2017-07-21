@@ -65,6 +65,37 @@ public class GlobalSharedManager {
         return sportsEventList;
     }
 
+    public boolean updateSportsEvent(SportsEvent updatedEvent) {
+
+        Boolean updated = false;
+
+        List<SportsEvent> allEvents = getAllSportsEvents();
+
+        clearAllSportsEvents();
+
+        for (SportsEvent e : allEvents) {
+            if (e.getLng() == updatedEvent.getLng() && e.getLng() == e.getLng()) {
+                updated = saveSportsEvent(updatedEvent);
+            } else {
+                updated = saveSportsEvent(e);
+            }
+        }
+
+        return updated;
+    }
+    // TODO - Add this
+
+    public boolean addUserToEvent(User user, SportsEvent event) {
+
+        List<User> subscribers = event.getSubscribedUsers();
+        subscribers.add(user);
+
+        SportsEvent eventToSave = event;
+        eventToSave.setSubscribedUsers(subscribers);
+
+        return updateSportsEvent(eventToSave);
+    }
+
     public void clearAllSportsEvents() {
         SharedPreferences preferences = appContext.getSharedPreferences(SPORTS_EVENT_LIST, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
